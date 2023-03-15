@@ -1,0 +1,2 @@
+cartographer:cartographer_ros/cartographer_ros:cartographer_ros/cartographer_ros_msgs:cartographer_ros/cartographer_rviz:cartographer_ros/star_jackal_mapper_description
+-G Ninja -DCATKIN_DEVEL_PREFIX=/home/joaojorge/catkin_ws/devel_isolated -DCMAKE_INSTALL_PREFIX=/home/joaojorge/catkin_ws/install_isolated

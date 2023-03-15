@@ -1,2 +1,1 @@
-cartographer/build
-cartographer/bazel-*
+cartographer/bazel.*

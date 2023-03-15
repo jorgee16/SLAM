@@ -1,8 +1,0 @@
-prefix=/home/joaojorge/catkin_ws/install_isolated
-
-Name: star_jackal_mapper_description
-Description: Description of star_jackal_mapper_description
-Version: 0.1.4
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

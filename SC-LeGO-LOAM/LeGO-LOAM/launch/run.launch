@@ -1,0 +1,78 @@
+<launch>
+    <!-- Bag com IMU a 10 Hz SEQUENCIA 07 DO KITTI-->
+    <!-- <arg name="bag" value="/home/joaojorge/Downloads/kitti_2011_09_30_drive_0027_synced.bag"/> -->
+
+    <!-- Bag com IMU a 100 Hz SEQUENCIA 07 DO KITTI-->
+    <!-- <arg name="bag" value="/home/joaojorge/Downloads/kitti_2011_09_30_drive_0027_100_hz_IMU/kitti.bag"/> -->
+
+    <!-- Bag com IMU a 100 Hz SEQUENCIA 00 DO KITTI-->
+    <!-- <arg name="bag" value="/home/joaojorge/Downloads/kitti_2011_10_03_drive_0027_100hz_IMU/kitti.bag"/> -->
+
+    <!-- Bag com IMU a 100 Hz SEQUENCIA 05 DO KITTI-->
+    <arg name='bag' value="/home/joaojorge/Downloads/kitti_2011_09_30_drive_0018_100HZ_IMU/kitti.bag"/>
+
+    <!-- Bag com IMU a 100 Hz SEQUENCIA 02 DO KITTI-->
+    <!-- <arg name='bag' value="/home/joaojorge/Downloads/kitti_2011_10_03_drive_0034_100HZ_IMU/kitti.bag"/> -->
+
+    <!--BERLIM DATASET VELODYNE 64 CHANNELS TIAGO-->
+    <!-- <arg name='bag' value="/home/joaojorge/Documents/FU_BERLIM/64/20170303-140708.bag"/> -->
+    <!-- <arg name='bag' value="/home/joaojorge/Documents/FU_BERLIM/64/20181023-121504.bag" /> -->
+
+    <!--- Sim Time -->
+    <param name="/use_sim_time" value="true" />
+
+    <!---         PARAMETERS               -->
+
+    <param name="method" type="str" value="ficheiro" />
+    <param name="loopclosureFlag" type="bool" value="true"/>
+    <!-- <param name="algorithm" type ="int" value ="1" /> -->
+
+    <param name="file_prediction" type ="str" value="/home/joaojorge/Documents/relocalization/VLAD/prediction.txt" />
+    <param name="file_score" type="str" value="/home/joaojorge/Documents/relocalization/VLAD/similarity.txt" />
+
+    <!--          ALGORITHMS               -->
+    <!--
+    
+    VALUE 1        ->             VLAD ALGORITHM
+    VALUE 2        ->             SPOC ALGORITHM
+    VALUE 3        ->             ORCHNET ALGORITHM
+    VALUE 4        ->             GEM ALGORITHM--> 
+
+
+    <!--- rosbag play -->
+    <node pkg="rosbag" type="play" name="rosbag_play" args="--clock -r 1 $(arg bag)" required="true">
+      <!-- <remap from="/imu/data" to="/imu_not_use"/>
+      <remap from="/tf" to="/tf_not_use"/> -->
+
+        <!-- 10 HZ IMU-->
+        <!-- <remap from="/kitti/oxts/imu" to="/imu/data" />   
+        <remap from="/kitti/velo/pointcloud" to="/velodyne_points" /> -->
+
+        <!-- 100 HZ IMU -->
+        <remap from="/imu_raw" to="/imu/data" />
+        <remap from="/points_raw" to="/velodyne_points" />
+
+        <!-- BERLIM DATASET TIAGO-->
+        <!-- <remap from="/sensors/velodyne_points" to="/velodyne_points" />
+        <remap from="/sensors/applanix/imu_data" to="/imu/data" /> -->
+        <!-- <remap from="/kitti/oxts/gps/fix" to="fix" /> -->
+        <!-- <remap from="/tf" to="/tf_in" /> -->
+    </node>
+
+    <!--- Run Rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lego_loam)/launch/test.rviz" />
+
+    <!--- TF -->
+    <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="0 0 0 1.570795   0        1.570795 /map    /camera_init 10" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_camera" args="0 0 0 -1.570795 -1.570795 0        /camera /base_link   10" />
+    <!-- <node pkg="tf" type="static_transform_publisher" name ="base_link_to_velodyne"   args="-2.48 -0.02 1.56 0.002207 -0.01489 0.01145 /base_link /velodyne 10" /> -->
+
+    <!--- LeGO-LOAM -->    
+    <node pkg="lego_loam" type="imageProjection"    name="imageProjection"    output="screen"/>
+    <node pkg="lego_loam" type="featureAssociation" name="featureAssociation" output="screen"/>
+    <node pkg="lego_loam" type="mapOptmization"     name="mapOptmization"     output="screen"/>
+    <node pkg="lego_loam" type="transformFusion"    name="transformFusion"    output="screen"/>
+
+  <node pkg="lego_loam" type="save_pose" name="save_pose" output="screen"/>
+
+</launch>

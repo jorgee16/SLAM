@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     // std::ofstream ofs ("home/joaojorge/LOAM_ws/save_pose.txt", std::ofstream::app);
     ros::init(argc, argv, "save_pose");
     ros::NodeHandle nh;
-    ros::Subscriber Listener = nh.subscribe<nav_msgs::Odometry>("aft_mapped_to_init", 100, callhandler); //aft_mapped_to_init  e integrated_to_init
+    ros::Subscriber Listener = nh.subscribe<nav_msgs::Odometry>("integrated_to_init", 100, callhandler); //aft_mapped_to_init  e integrated_to_init
     
     // write_to_file(ofs);
     ros::spin();

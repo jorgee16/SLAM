@@ -129,7 +129,7 @@ std::pair<int, float> LOOPS_FROM_FILE::detectLoopClosureID(){
      * step 1: candidates from ringkey tree_
      */
 
-
+    std::cout << std::endl << "frame_id:" << frame_id << std::endl;
     // std::cout << "frame_id: " << frame_id << std::endl;
     if(LOOPS_FROM_FILE::has_loops(LOOPS_INDEX[frame_id]) == false)
     {
@@ -151,7 +151,7 @@ std::pair<int, float> LOOPS_FROM_FILE::detectLoopClosureID(){
     for (unsigned long i = 0; i < LOOP_BUFFER_GLOBAL.size(); i++){ 
         if (nn_idx == LOOP_BUFFER_GLOBAL[i]){
                 // std::cout << std::endl;
-            if(min_score < 0.35){
+            if(min_score < 0.5){
                 std::cout.precision(3); 
                 std::cout << "[Loop found] Minimum Score: " << min_score << " between " << frame_id << " and " << nn_idx << "." << std::endl;
                 

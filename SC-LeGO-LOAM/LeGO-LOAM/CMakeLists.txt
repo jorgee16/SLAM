@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(lego_loam)
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -O3")
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -58,7 +58,7 @@ target_link_libraries(featureAssociation ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${
 add_executable(mapOptmization 
     src/mapOptmization.cpp
     src/Scancontext.cpp
-    src/save_pose.cpp
+    src/read_file_store_vector.cpp
 )
 target_link_libraries(mapOptmization 
     ${catkin_LIBRARIES} 

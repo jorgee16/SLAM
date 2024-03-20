@@ -1,0 +1,14 @@
+<launch>
+
+	<arg name="project" default="lio_sam"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find lio_sam)/launch/include/config/GEORGIA_TECH.urdf" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true">
+        <!-- <param name="tf_prefix" value="$(env ROS_HOSTNAME)"/> -->
+    </node>
+
+    <!--- Run Rviz-->
+    <include file="$(find lio_sam)/launch/include/module_rviz.launch" />
+  
+</launch>

@@ -1,0 +1,34 @@
+<launch>
+
+    <arg name="project" default="lio_sam"/>
+    
+    <!-- Bag com IMU a 200HZ POLO 2 SEQUENCIA 2 -->
+    <arg name='bag' value="/home/joaojorge/POLO2_SEQ2/POLO2_SEQ02_new.bag"/>
+
+    <!-- GEORGIA TECH DATASET -->
+    <!-- <arg name='bag' value="/home/joaojorge/orchard_new.bag"/> -->
+
+    <!-- *******************  SIM TIME *********************** -->
+    <param name="/use_sim_time" value="true" />
+
+    <!-- Parameters -->
+    <rosparam file="$(find lio_sam)/config/params_POLO2.yaml" command="load" />
+
+    <node pkg="rosbag" type="play" name="rosbag_play" args="--clock -r 1 $(arg bag)" required="true">
+        <remap from="/imu/data" to="/imu_raw" />
+        <remap from="/ouster/points" to="/points_raw" />
+
+    </node>
+
+    <!--- LOAM -->
+    <include file="$(find lio_sam)/launch/include/module_loam.launch" />
+
+    <!--- Robot State TF and RVIZ-->
+    <include file="$(find lio_sam)/launch/include/module_POLO2.launch" />
+
+    <!--- Run Rviz-->
+    <!-- <include file="$(find lio_sam)/launch/include/module_POLO2_rviz.launch.launch" /> -->
+
+    <!-- <node pkg="lio_sam" type="save_path" name="save_path" output="screen"/> -->
+
+</launch>

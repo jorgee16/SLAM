@@ -1,0 +1,14 @@
+<launch>
+
+    <arg name="project" default="lio_sam"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find lio_sam)/launch/include/config/POLO2.urdf" />
+  
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+    <!--- Run Rviz-->
+    <node pkg="rviz" type="rviz" name="$(arg project)_rviz" args="-d $(find lio_sam)/launch/include/config/POLO2.rviz" />
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> -->
+  
+</launch>

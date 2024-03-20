@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<robot name="GEORGIA_TECH_ROBOT">
+  <material name="orange">
+    <color rgba="1.0 0.5 0.2 1" />
+  </material>
+  <material name="gray">
+    <color rgba="0.2 0.2 0.2 1" />
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder length="0.25" radius="0.05" />
+      </geometry>
+      <material name="gray" />
+    </visual>
+  </link>
+
+
+  <link name="os_sensor">
+    <visual>
+      <origin xyz="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder length="0.25" radius="0.05" />
+      </geometry>
+      <material name="gray" />
+    </visual>
+  </link>
+
+  <!-- <link name="sbg" />
+
+  <joint name="imu_link_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="sbg" />
+    <origin xyz="0 0 0" rpy="-3.137 0 0" />
+  </joint> -->
+  <!-- <joint name="base_link_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="imu_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="-0.0208118 -0.0041256 -0.0082572" />
+  </joint> -->
+
+  <joint name="velo_base_link_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="os_sensor" />
+    <origin xyz="0.25 0 0.27" rpy="0 0 0" />
+  </joint>
+</robot> 

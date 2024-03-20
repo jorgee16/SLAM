@@ -1,1 +1,2 @@
 # SLAM_WS
+Ver os README do SC LEGO E SC LIO

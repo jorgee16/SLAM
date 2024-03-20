@@ -1,6 +1,5 @@
 build/
 devel/*
-*.txt
 
 CMakeLists.txt.user
 CMakeCache.txt
@@ -16,9 +15,4 @@ _deps
 
 
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
